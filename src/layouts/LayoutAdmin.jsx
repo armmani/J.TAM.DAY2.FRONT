@@ -1,6 +1,11 @@
+import { Outlet } from "react-router"
+
 function LayoutAdmin() {
   return (
-    <div>LayoutAdmin</div>
+    <div>
+      LayoutAdmin
+      <Outlet />
+    </div>
   )
 }
 export default LayoutAdmin

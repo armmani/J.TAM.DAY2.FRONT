@@ -8,6 +8,7 @@ import Login from "../pages/auth/Login";
 import Dashboard from "../pages/admin/Dashboard";
 import Manage from "../pages/admin/Manage";
 import Layout from "../layouts/Layout";
+import LayoutAdmin from "../layouts/LayoutAdmin";
 
 function AppRoutes() {
   return (
@@ -21,8 +22,10 @@ function AppRoutes() {
       </Route>
 
       {/* Private  */}
-      <Route path="/admin/dashboard" element={<Dashboard />} />
-      <Route path="/admin/manage" element={<Manage />} />
+      <Route path="admin" element={<LayoutAdmin />}>
+        <Route index element={<Dashboard />} />
+        <Route path="manage" element={<Manage />} />
+      </Route>
     </Routes>
   );
 }
