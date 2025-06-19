@@ -1,11 +1,9 @@
-function FormInput({ name, register, errors }) {
+function FormInput({ name, register, errors, type = "text" }) {
   return (
     <>
-      <input className="input" placeholder={name} {...register(name)} />
+      <input className="input" placeholder={name} type={type} {...register(name)} />
       <p>
-        {
-          errors[name]
-        }
+        {errors[name] && <p className="text-red-300">{errors[name].message}</p>}
       </p>
     </>
   );

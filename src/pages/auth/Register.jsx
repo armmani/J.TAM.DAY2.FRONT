@@ -42,8 +42,8 @@ function Register() {
 
             <FormInput register={register} name="email" errors={errors} />
             <FormInput register={register} name="name" errors={errors} />
-            <FormInput register={register} name="password" errors={errors} />
-            <FormInput register={register} name="confirmPassword" errors={errors} />
+            <FormInput register={register} name="password" errors={errors} type="password" />
+            <FormInput register={register} name="confirmPassword" errors={errors} type="password" />
 
             <Buttons label="Register" isSubmitting={isSubmitting} />
           </fieldset>
