@@ -2,15 +2,15 @@ import React from "react";
 import FormInput from "../../components/form/FormInput";
 import { createAlert } from "../../utils/createAlert";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import Buttons from "../../components/form/Buttons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../../utils/validator";
+import { actionRegister } from "../../api/auth";
 
 function Register() {
   // JS
 
-  const { handleSubmit, register, formState } = useForm({
+  const { handleSubmit, register, formState, reset } = useForm({
     resolver: yupResolver(registerSchema),
   });
   const { isSubmitting, errors } = formState;
@@ -20,12 +20,10 @@ function Register() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/auth/register",
-        value
-      );
+      const res = await actionRegister(value);
       console.log(res);
       createAlert("success", res.data.message);
+      reset();
     } catch (error) {
       console.log(error);
       createAlert("error", error.response?.data?.message);
@@ -42,8 +40,18 @@ function Register() {
 
             <FormInput register={register} name="email" errors={errors} />
             <FormInput register={register} name="name" errors={errors} />
-            <FormInput register={register} name="password" errors={errors} type="password" />
-            <FormInput register={register} name="confirmPassword" errors={errors} type="password" />
+            <FormInput
+              register={register}
+              name="password"
+              errors={errors}
+              type="password"
+            />
+            <FormInput
+              register={register}
+              name="confirmPassword"
+              errors={errors}
+              type="password"
+            />
 
             <Buttons label="Register" isSubmitting={isSubmitting} />
           </fieldset>
