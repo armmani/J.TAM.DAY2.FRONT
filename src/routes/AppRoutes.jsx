@@ -7,16 +7,19 @@ import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import Dashboard from "../pages/admin/Dashboard";
 import Manage from "../pages/admin/Manage";
+import Layout from "../layouts/Layout";
 
 function AppRoutes() {
   return (
     <Routes>
       {/* Public */}
-      <Route path="/" element={<Home />} />
-      <Route path="about" element={<About />} />
-      <Route path="register" element={<Register />} />
-      <Route path="login" element={<Login />} />
-      
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+      </Route>
+
       {/* Private  */}
       <Route path="/admin/dashboard" element={<Dashboard />} />
       <Route path="/admin/manage" element={<Manage />} />
