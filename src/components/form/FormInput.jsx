@@ -1,6 +1,10 @@
-function FormInput({name}) {
+function FormInput({ name, register }) {
   return (
-    <input type="email" className="input" placeholder={name} />
-  )
+    <input
+      className="input"
+      placeholder={name}
+      {...register(name)}
+    />
+  );
 }
-export default FormInput
+export default FormInput;
