@@ -1,9 +1,10 @@
 import { Outlet } from "react-router"
+import MainNav from "../components/MainNav"
 
 function Layout() {
   return (
     <div>
-      Navbar
+      <MainNav />
       <Outlet />
     </div>
   )
