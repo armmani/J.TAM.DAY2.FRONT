@@ -11,14 +11,15 @@ import Manage from "../pages/admin/Manage";
 function AppRoutes() {
   return (
     <Routes>
+      {/* Public */}
       <Route path="/" element={<Home />} />
       <Route path="about" element={<About />} />
-
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       
-      <Route path="dashboard" element={<Dashboard />} />
-      <Route path="manage" element={<Manage />} />
+      {/* Private  */}
+      <Route path="/admin/dashboard" element={<Dashboard />} />
+      <Route path="/admin/manage" element={<Manage />} />
     </Routes>
   );
 }
