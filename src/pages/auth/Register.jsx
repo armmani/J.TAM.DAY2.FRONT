@@ -11,7 +11,7 @@ function Register() {
   const { isSubmitting } = formState;
 
   const hdlSubmit = async (value) => {
-    console.log(value);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
       const res = await axios.post(
@@ -39,7 +39,9 @@ function Register() {
             <FormInput register={register} name="password" />
             <FormInput register={register} name="confirmPassword" />
 
-            <button className="btn btn-neutral mt-4">REGISTER</button>
+            <button className="btn btn-neutral mt-4">
+              {isSubmitting ? "T" : "F"}
+            </button>
           </fieldset>
         </form>
       </div>
