@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getMe } from "../api/user";
 import useAuthStore from "../store/auth-store";
 
-function ProtectRoute({ el }) {
+function ProtectRoute({ el, allows }) {
   // JS
   const [ok, setOk] = useState(null);
   const token = useAuthStore((state) => state.token);
@@ -14,11 +14,15 @@ function ProtectRoute({ el }) {
   const checkPermission = async () => {
     try {
       const res = await getMe(token);
-      const role = res.data.result.role
-      console.log(role);
-      setOk(true)
+      const role = res.data.result.role;
+      if (allows.includes(role)) {
+        setOk(true);
+      } else {
+        setOk(false);
+      }
+      // setOk(allows.includes(role)) ==> อันนี้คือแทน if else ข้างบน
     } catch (error) {
-      setOk(false)
+      setOk(false);
       console.log(error);
     }
   };
@@ -26,7 +30,7 @@ function ProtectRoute({ el }) {
     return <h1>Loading.....</h1>;
   }
   if (!ok) {
-    return <h1>Unauthorization...</h1>
+    return <h1>Unauthorization...</h1>;
   }
   return el;
 }

@@ -12,7 +12,6 @@ import LayoutAdmin from "../layouts/LayoutAdmin";
 import HomeUser from "../pages/user/HomeUser";
 import ProtectRoute from "./ProtectRoute";
 
-
 function AppRoutes() {
   return (
     <Routes>
@@ -25,12 +24,15 @@ function AppRoutes() {
       </Route>
 
       {/* Private  */}
-      <Route path="user" element={<Layout />} >
+      <Route path="user" element={<Layout />}>
         <Route index element={<HomeUser />} />
       </Route>
 
       {/* <Route path="admin" element={<LayoutAdmin />}> */}
-      <Route path="admin" element={<ProtectRoute el={<LayoutAdmin />}/>}>
+      <Route
+        path="admin"
+        element={<ProtectRoute el={<LayoutAdmin />} allows={["ADMIN"]} />}
+      >
         <Route index element={<Dashboard />} />
         <Route path="manage" element={<Manage />} />
       </Route>
