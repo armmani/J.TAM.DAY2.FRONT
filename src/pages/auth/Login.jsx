@@ -11,8 +11,9 @@ import useAuthStore from "../../store/auth-store";
 function Login() {
   // JS
   // Zustand
-  const user = useAuthStore((state) => state.user);
-  console.log(user);
+  const actionLoginWithZustand = useAuthStore(
+    (state) => state.actionLoginWithZustand
+  );
 
   const { handleSubmit, register, formState, reset } = useForm({
     resolver: yupResolver(loginSchema),
@@ -24,7 +25,7 @@ function Login() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     try {
-      const res = await actionLogin(value);
+      const res = await actionLoginWithZustand(value);
       console.log(res);
       createAlert("success", res.data.message);
       // reset();
