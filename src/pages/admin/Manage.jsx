@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { actionListUsers } from "../../api/user";
+import { actionListUsers, actionUpdateRole } from "../../api/user";
 import useAuthStore from "../../store/auth-store";
+import { createAlert } from "../../utils/createAlert";
+import { Trash } from "lucide-react";
 
 function Manage() {
   // JS
@@ -22,6 +24,18 @@ function Manage() {
       console.log(error);
     }
   };
+  // 5 ไปสร้าง option Role แล้วมา 6 สร้าง hdlUpdateRole ใช้เก็บข้อมูลเปลี่ยน role มาไว้ในนี้
+  const hdlUpdateRole = async (token, id, role) => {
+    console.log(token, id, role);
+    try {
+      const res = await actionUpdateRole(token, id, { role });
+      console.log(res);
+      createAlert("success", res.data.message)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
@@ -45,12 +59,20 @@ function Manage() {
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>
-                    <select defaultValue={item.role}>
+                    <select
+                      defaultValue={item.role}
+                      onChange={(e) =>
+                        hdlUpdateRole(token, item.id, e.target.value)
+                      }
+                      className="select select-neutral"
+                    >
                       <option>USER</option>
                       <option>ADMIN</option>
                     </select>
-                    </td>
-                  <td>Delete</td>
+                  </td>
+                  <td>
+                    <Trash color="red" />
+                  </td>
                 </tr>
               );
             })}
