@@ -25,7 +25,7 @@ function AppRoutes() {
 
       <Route
         path="user"
-        element={<ProtectRoute el={<Layout />} allows={["USER"]} />}
+        element={<ProtectRoute el={<Layout />} allows={["USER", "ADMIN"]} />}
       >
         <Route index element={<HomeUser />} />
       </Route>
