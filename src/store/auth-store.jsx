@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { actionLogin } from "../api/auth";
+import { persist } from "zustand/middleware";
 
 // 1. Create Store
 const authStore = (set) => ({
@@ -9,9 +10,10 @@ const authStore = (set) => ({
     try {
       const res = await actionLogin(value);
       const { payload, token } = res.data;
-      console.log(payload);
-      console.log(token);
-      set({token: token, user: payload})
+      // console.log(payload);
+      // console.log(token);
+      set({ token: token, user: payload });
+      return { success: true, role: payload.role }; // ข้อมูลถูก return ออกไปใส่ใน authStore ที่ const ไว้
     } catch (error) {
       // console.log(error)
       return { success: false, message: error.response?.data?.message };
@@ -20,6 +22,6 @@ const authStore = (set) => ({
 });
 
 // 2. UseStore
-const useAuthStore = create(authStore);
+const useAuthStore = create(persist(authStore, { name: "auth-store" }));
 
 export default useAuthStore;

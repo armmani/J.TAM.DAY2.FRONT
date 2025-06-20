@@ -7,9 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../utils/validator";
 import { actionLogin } from "../../api/auth";
 import useAuthStore from "../../store/auth-store";
+import { useNavigate } from "react-router";
 
 function Login() {
   // JS
+  const navigate = useNavigate();
   // Zustand
   const actionLoginWithZustand = useAuthStore(
     (state) => state.actionLoginWithZustand
@@ -22,18 +24,37 @@ function Login() {
   // console.log(errors);
 
   const hdlSubmit = async (value) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const res = await actionLoginWithZustand(value);
+    console.log(res);
+    if (res.success) {
+      createAlert("success", "WELCOME BACK");
+      roleRedirect(res.role)
+    } else {
+      createAlert("info", res.message);
+    }
 
-    try {
-      const res = await actionLoginWithZustand(value);
-      console.log(res);
-      createAlert("success", res.data.message);
-      // reset();
-    } catch (error) {
-      console.log(error);
-      createAlert("error", error.response?.data?.message);
+    // comment ทิ้ง เพราะว่าจะไปทำ zustand มาแทนนนน
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // try {
+    //   const res = await actionLoginWithZustand(value);
+    //   console.log(res);
+    //   createAlert("success", res.data.message);
+    //   // reset();
+    // } catch (error) {
+    //   console.log(error);
+    //   createAlert("error", error.response?.data?.message);
+    // }
+  };
+
+  const roleRedirect = (role) => {
+    if (role === "ADMIN") {
+      navigate("/admin");
+    } else {
+      navigate("/user");
     }
   };
+
   return (
     <div className="flex w-full h-full justify-end">
       {/* Card */}
