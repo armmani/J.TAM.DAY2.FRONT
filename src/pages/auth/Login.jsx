@@ -6,9 +6,13 @@ import Buttons from "../../components/form/Buttons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../utils/validator";
 import { actionLogin } from "../../api/auth";
+import useAuthStore from "../../store/auth-store";
 
 function Login() {
   // JS
+  // Zustand
+  const user = useAuthStore((state) => state.user);
+  console.log(user);
 
   const { handleSubmit, register, formState, reset } = useForm({
     resolver: yupResolver(loginSchema),
@@ -23,7 +27,7 @@ function Login() {
       const res = await actionLogin(value);
       console.log(res);
       createAlert("success", res.data.message);
-      reset();
+      // reset();
     } catch (error) {
       console.log(error);
       createAlert("error", error.response?.data?.message);
