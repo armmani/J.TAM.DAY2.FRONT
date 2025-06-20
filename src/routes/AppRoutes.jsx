@@ -1,7 +1,7 @@
 // rfce
 
 import { Route, Routes } from "react-router";
-import Home from "../pages/HomeUser";
+import Home from "../pages/Home";
 import About from "../pages/About";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
@@ -9,7 +9,9 @@ import Dashboard from "../pages/admin/Dashboard";
 import Manage from "../pages/admin/Manage";
 import Layout from "../layouts/Layout";
 import LayoutAdmin from "../layouts/LayoutAdmin";
-import HomeUser from "../pages/HomeUser";
+import HomeUser from "../pages/user/HomeUser";
+import ProtectRoute from "./ProtectRoute";
+
 
 function AppRoutes() {
   return (
@@ -27,7 +29,8 @@ function AppRoutes() {
         <Route index element={<HomeUser />} />
       </Route>
 
-      <Route path="admin" element={<LayoutAdmin />}>
+      {/* <Route path="admin" element={<LayoutAdmin />}> */}
+      <Route path="admin" element={<ProtectRoute el={<LayoutAdmin />}/>}>
         <Route index element={<Dashboard />} />
         <Route path="manage" element={<Manage />} />
       </Route>
