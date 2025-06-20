@@ -23,3 +23,11 @@ export const actionUpdateRole = async (token, id, role) => {
     },
   });
 };
+
+export const actionDeleteUser = async (token, id) => {
+  return await axios.delete("http://localhost:8000/api/user/" + id, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
