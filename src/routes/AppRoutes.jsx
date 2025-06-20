@@ -23,11 +23,14 @@ function AppRoutes() {
         <Route path="login" element={<Login />} />
       </Route>
 
-      {/* Private  */}
-      <Route path="user" element={<Layout />}>
+      <Route
+        path="user"
+        element={<ProtectRoute el={<Layout />} allows={["USER"]} />}
+      >
         <Route index element={<HomeUser />} />
       </Route>
 
+      {/* Private  */}
       {/* <Route path="admin" element={<LayoutAdmin />}> */}
       <Route
         path="admin"

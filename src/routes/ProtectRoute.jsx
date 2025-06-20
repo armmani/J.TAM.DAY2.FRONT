@@ -20,7 +20,7 @@ function ProtectRoute({ el, allows }) {
       } else {
         setOk(false);
       }
-      // setOk(allows.includes(role)) ==> อันนี้คือแทน if else ข้างบน
+      // setOk(allows.includes(role)) // อันนี้คือแทน if else ข้างบน
     } catch (error) {
       setOk(false);
       console.log(error);
