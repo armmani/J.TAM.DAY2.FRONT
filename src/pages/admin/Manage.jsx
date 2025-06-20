@@ -42,20 +42,19 @@ function Manage() {
   };
 
   // 7 ทำ hdlDelete เพื่อคอนเฟิร์มก่อนลบ
-  const hdlDeleteUser = async (token, id, name) => {
+  const hdlDeleteUser = async (token, id) => {
     const { isConfirmed } = await Swal.fire({
       icon: "question",
       text: `Delete this User ?`,
       showCancelButton: true,
       showCloseButton: true,
     });
-
     if (isConfirmed) {
       try {
         const res = await actionDeleteUser(token, id);
         console.log(res);
         createAlert("success", res.data.message);
-        fetchUsers()
+        fetchUsers();
       } catch (error) {
         console.log(error);
       }
